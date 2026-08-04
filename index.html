@@ -38,6 +38,10 @@
   --panel:#0A1620; --panel-2:#12232F; --panel-line:#1E3444;
   --panel-ink:#E9F1F6; --panel-ink-2:#93AAB9; --panel-frost:#7FD6EA;
 
+  /* koyu mavi bölüm (kategoriler) — panel gibi, her iki temada da aynı kalır */
+  --deep:#0A2A5E; --deep-2:#0E356F; --deep-line:#22508F;
+  --deep-ink:#EDF3FC; --deep-ink-2:#A8BFDF; --deep-frost:#7FD6EA;
+
   --f-display:"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
   --f-body:"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
   --f-mono:ui-monospace,"Cascadia Mono","Consolas","SF Mono","Menlo",monospace;
@@ -293,6 +297,19 @@ img{max-width:100%;height:auto;display:block}
 .h2{font-size:var(--fs-h2);font-weight:800;letter-spacing:-.032em;line-height:1.05}
 .lead{font-size:var(--fs-lead);color:var(--ink-2);max-width:62ch;margin-top:16px}
 .band--panel .lead{color:var(--panel-ink-2)}
+
+/* ── KOYU MAVİ BÖLÜM ───────────────────────────────────────
+   Kartlar ve fotoğraf çerçeveleri kendi zeminlerini koruduğu için
+   sadece bandın kendi metinleri açık renge çevrilir. Kart içindeki
+   yazılar .card üzerindeki renk sıfırlamasıyla korunur. */
+.band--deep{background:linear-gradient(180deg,var(--deep),var(--deep-2));color:var(--deep-ink)}
+.band--deep .h2{color:#fff}
+.band--deep .lead{color:var(--deep-ink-2)}
+.band--deep .rail__note{color:var(--deep-ink-2);border-top-color:var(--deep-line)}
+.band--deep .tag--accent{color:var(--deep-frost)}       /* accent mavisi koyu mavide okunmuyor */
+.band--deep .card{color:var(--ink)}                     /* banttan miras açık renk kart içine sızmasın */
+/* kartlar 1px boşluklu tek blok: gölge kart başına değil bloğun tamamına */
+.band--deep .grid-p{box-shadow:var(--shadow-2)}
 
 /* ── 8. KATEGORİ KARTLARI ──────────────────────────────── */
 .grid-p{
@@ -768,7 +785,7 @@ img{max-width:100%;height:auto;display:block}
 </div>
 
 <!-- ╔══ KATEGORİLER ══╗ -->
-<section class="band band--surface" id="urunler">
+<section class="band band--deep" id="urunler">
   <div class="shell rail">
     <aside class="rail__side">
       <p class="tag tag--accent"><span class="tag__dot"></span>Ürün grupları</p>
