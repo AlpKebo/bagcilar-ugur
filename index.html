@@ -307,9 +307,9 @@ img{max-width:100%;height:auto;display:block}
 .band--deep .lead{color:var(--deep-ink-2)}
 .band--deep .rail__note{color:var(--deep-ink-2);border-top-color:var(--deep-line)}
 .band--deep .tag--accent{color:var(--deep-frost)}       /* accent mavisi koyu mavide okunmuyor */
-.band--deep .card{color:var(--ink)}                     /* banttan miras açık renk kart içine sızmasın */
-/* kartlar 1px boşluklu tek blok: gölge kart başına değil bloğun tamamına */
-.band--deep .grid-p{box-shadow:var(--shadow-2)}
+/* kartlar kendi açık zeminlerini koruduğu için banttan miras açık renk
+   kart içine sızmamalı (yoksa beyaz kartta beyaz başlık kalır) */
+.band--deep .card,.band--deep .model{color:var(--ink)}
 
 /* ── 8. KATEGORİ KARTLARI ──────────────────────────────── */
 .grid-p{
@@ -785,7 +785,7 @@ img{max-width:100%;height:auto;display:block}
 </div>
 
 <!-- ╔══ KATEGORİLER ══╗ -->
-<section class="band band--deep" id="urunler">
+<section class="band band--surface" id="urunler">
   <div class="shell rail">
     <aside class="rail__side">
       <p class="tag tag--accent"><span class="tag__dot"></span>Ürün grupları</p>
@@ -889,7 +889,7 @@ img{max-width:100%;height:auto;display:block}
 <!-- ╔══ ÖNE ÇIKAN MODELLER ══╗
      ⚠ GÜNCELLE: model kodları ve teknik değerler Uğur kataloğundan alınmıştır.
      Stok ve teknik bilgiyi satış öncesi teyit edin, değişirse buradan düzenleyin. -->
-<section class="band" id="modeller">
+<section class="band band--deep" id="modeller">
   <div class="shell rail">
     <aside class="rail__side">
       <p class="tag tag--accent"><span class="tag__dot"></span>Öne çıkan modeller</p>
