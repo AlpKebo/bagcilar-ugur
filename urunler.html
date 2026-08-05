@@ -290,6 +290,9 @@ img{max-width:100%;height:auto;display:block}
 /* ── 7. BÖLÜM İSKELETİ ─────────────────────────────────── */
 .band{padding-block:var(--band-y)}
 .band--surface{background:var(--surface)}
+/* marka mavisinin açık tonu — katalogda beyaz bantlarla dönüşümlü kullanılıyor.
+   Değişken temayla değiştiği için koyu temada lacivert olur, ayrıca kural gerekmez. */
+.band--wash{background:var(--accent-wash)}
 .band--panel{background:var(--panel);color:var(--panel-ink)}
 .band--panel h2,.band--panel h3{color:#fff}
 
@@ -679,7 +682,7 @@ img{max-width:100%;height:auto;display:block}
 }
 
 /* ── 22. ÜRÜN KATALOĞU ─────────────────────────────────── */
-.katalog__grup + .katalog__grup{margin-top:clamp(46px,5.5vw,76px)}
+/* gruplar artık ayrı bantlarda; aradaki boşluğu bandın kendi dolgusu veriyor */
 .katalog__h{font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.1}
 .katalog__ozet{font-size:1rem;color:var(--ink-2);max-width:62ch;margin-top:10px}
 /* katalogda kart görselleri ürün sayfasındakinden yüksek dursun */
@@ -780,13 +783,13 @@ img{max-width:100%;height:auto;display:block}
   </div>
 </section>
 
-<!-- ╔══ KATALOG ══╗ -->
+<!-- ╔══ DERIN DONDURUCULAR ══╗ -->
 <section class="band band--surface">
   <div class="shell">
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Derin dondurucular</h2>
-        <p class="katalog__ozet">Mağazamızda bulunan dikey No-Frost modeller. Dondurucu/soğutucu (D/S) olanlar ihtiyaca göre iki şekilde de çalışır.</p>
-        <div class="grid-p">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Derin dondurucular</h2>
+      <p class="katalog__ozet">Mağazamızda bulunan dikey No-Frost modeller. Dondurucu/soğutucu (D/S) olanlar ihtiyaca göre iki şekilde de çalışır.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/dd-ued6204.webp" width="174" height="520" loading="lazy" alt="Uğur UED 6204 DTK NF">
@@ -823,13 +826,18 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">Raflı 390 litre geniş hacim. Kalabalık aileler ve toplu alışveriş için.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Buzdolapları</h2>
-        <p class="katalog__ozet">Mağazamızda bulunan üstten donduruculu No-Frost modeller, 463 L’den 635 L’ye. Nişinize oturan ölçüyü birlikte seçelim — kapağını açıp iç hacmini görebilirsiniz.</p>
-        <div class="grid-p">
+<!-- ╔══ BUZDOLAPLARI ══╗ -->
+<section class="band band--wash">
+  <div class="shell">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Buzdolapları</h2>
+      <p class="katalog__ozet">Mağazamızda bulunan üstten donduruculu No-Frost modeller, 463 L’den 635 L’ye. Nişinize oturan ölçüyü birlikte seçelim — kapağını açıp iç hacmini görebilirsiniz.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/buzdolabi-ues470.webp" width="196" height="486" loading="lazy" alt="Uğur UES 470 D2K NF">
@@ -866,13 +874,18 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">635 litre — serinin en geniş hacmi. Toplu alışveriş yapanlar için.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Çamaşır, kurutma ve bulaşık makineleri</h2>
-        <p class="katalog__ozet">Mağazamızda bulunan çamaşır ve kurutma modelleri, 9 kg’dan 12 kg’a. Su ve tahliye bağlantılarını kendi ekibimiz yapar; makineyi yerine kurup çalıştırarak teslim ediyoruz.</p>
-        <div class="grid-p">
+<!-- ╔══ ÇAMAŞIR, KURUTMA VE BULAŞIK MAKINELERI ══╗ -->
+<section class="band band--surface">
+  <div class="shell">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Çamaşır, kurutma ve bulaşık makineleri</h2>
+      <p class="katalog__ozet">Mağazamızda bulunan çamaşır ve kurutma modelleri, 9 kg’dan 12 kg’a. Su ve tahliye bağlantılarını kendi ekibimiz yapar; makineyi yerine kurup çalıştırarak teslim ediyoruz.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/camasir-ucm20914.webp" width="226" height="301" loading="lazy" alt="Uğur UCM 20914 B101">
@@ -928,13 +941,18 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">Düşük su tüketimli modeller. Ankastre ve solo seçenekler.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Ankastre ürünler</h2>
-        <p class="katalog__ozet">Set olarak ya da tek tek alınabilir. Mutfak ölçünüze göre uygun kombinasyonu birlikte belirleyelim.</p>
-        <div class="grid-p">
+<!-- ╔══ ANKASTRE ÜRÜNLER ══╗ -->
+<section class="band band--wash">
+  <div class="shell">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Ankastre ürünler</h2>
+      <p class="katalog__ozet">Set olarak ya da tek tek alınabilir. Mutfak ölçünüze göre uygun kombinasyonu birlikte belirleyelim.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/kat-ank-set.webp" width="347" height="374" loading="lazy" alt="Uğur Ankastre set">
@@ -980,13 +998,18 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">Dolap içine gömülen modeller. Tezgâhta yer kaplamaz.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Klimalar</h2>
-        <p class="katalog__ozet">Duvar tipi ve salon tipi seçenekler. İç ve dış ünite montajını dışarıya vermiyoruz.</p>
-        <div class="grid-p">
+<!-- ╔══ KLIMALAR ══╗ -->
+<section class="band band--surface">
+  <div class="shell">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Klimalar</h2>
+      <p class="katalog__ozet">Duvar tipi ve salon tipi seçenekler. İç ve dış ünite montajını dışarıya vermiyoruz.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/klima-ugur.webp" width="350" height="136" loading="lazy" alt="Uğur Duvar tipi klima">
@@ -996,13 +1019,18 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">Enerji tasarruflu inverter split modeller. Oda ölçünüze göre BTU seçilir.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="katalog__grup">
-        <h2 class="katalog__h">Su sebilleri</h2>
-        <p class="katalog__ozet">Ofis, dükkân ve evler için sıcak-soğuk içme suyu.</p>
-        <div class="grid-p">
+<!-- ╔══ SU SEBILLERI ══╗ -->
+<section class="band band--wash">
+  <div class="shell">
+    <div class="katalog__grup">
+      <h2 class="katalog__h">Su sebilleri</h2>
+      <p class="katalog__ozet">Ofis, dükkân ve evler için sıcak-soğuk içme suyu.</p>
+      <div class="grid-p">
           <a class="card rise" href="iletisim.html">
             <div class="card__art card__art--photo">
               <img src="img/sebil-ugur.webp" width="134" height="394" loading="lazy" alt="Uğur Su sebili">
@@ -1012,8 +1040,8 @@ img{max-width:100%;height:auto;display:block}
             <p class="card__d">Damacanalı ve alttan yüklemeli modeller. Ofis, dükkân ve ev için.</p>
             <span class="card__go">Fiyat sor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-        </div>
       </div>
+    </div>
   </div>
 </section>
 
