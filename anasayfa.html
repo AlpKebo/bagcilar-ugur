@@ -374,41 +374,96 @@ img{max-width:100%;height:auto;display:block}
 .lb__close:hover{background:rgba(255,255,255,.22)}
 .lb__close svg{width:20px;height:20px}
 
-/* ── 3D GÖRÜNTÜLEYİCİ: fotoğraf ön yüz, CSS küboid gövde ── */
+/* ── 3D GÖRÜNTÜLEYİCİ ────────────────────────────────────────────────
+   Ölçüler ve dokular JS'ten CSS değişkeniyle geliyor (--v3w/--v3h/--v3p),
+   böylece her ürün kendi gerçek en/boy/derinlik oranıyla çiziliyor.
+   Doku veren ürünlerde yan yüzler ürünün kendi fotoğrafından çıkarılmış
+   panel görüntüsünü kullanır; vermeyenlerde nötr gradyana düşer. */
 .lb--3d .lb__img{display:none}
-.v3d{display:none;place-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.v3d{
+  display:none;place-items:center;cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-select:none;
+  --v3w:210px; --v3h:454px; --v3p:120px;      /* varsayılan: eski buzdolabı oranı */
+}
 .lb--3d .v3d{display:grid}
 .v3d:active{cursor:grabbing}
-.v3d__stage{width:300px;height:540px;perspective:1150px;display:grid;place-items:center;position:relative}
-.v3d__obj{position:relative;width:210px;height:454px;transform-style:preserve-3d;will-change:transform}
-.v3d__f{position:absolute;left:50%;top:50%;border:1px solid rgba(160,168,176,.55)}
-.v3d__f--front,.v3d__f--back{width:210px;height:454px;margin:-227px 0 0 -105px;border-radius:9px;overflow:hidden}
-.v3d__f--front{transform:translateZ(60px);background:#fff}
-.v3d__f--front img{width:100%;height:100%;object-fit:cover;display:block}
-.v3d__f--back{
-  transform:rotateY(180deg) translateZ(60px);
-  background:
-    repeating-linear-gradient(0deg,transparent 0 26px,rgba(0,0,0,.07) 26px 28px),
-    linear-gradient(180deg,#DDE0E4,#C8CCD2);
+.v3d__stage{
+  width:min(340px,80vw);height:min(560px,62vh);perspective:1400px;perspective-origin:50% 42%;
+  display:grid;place-items:center;position:relative;
 }
-.v3d__f--left,.v3d__f--right{width:120px;height:454px;margin:-227px 0 0 -60px;border-radius:6px}
-.v3d__f--left{transform:rotateY(-90deg) translateZ(105px);background:linear-gradient(90deg,#F2F3F5,#DCDFE3)}
-.v3d__f--right{transform:rotateY(90deg) translateZ(105px);background:linear-gradient(-90deg,#E6E8EB,#CBCFD4)}
-.v3d__f--top,.v3d__f--bottom{width:210px;height:120px;margin:-60px 0 0 -105px;border-radius:6px}
-.v3d__f--top{transform:rotateX(90deg) translateZ(227px);background:linear-gradient(180deg,#F5F6F8,#E2E4E8)}
-.v3d__f--bottom{transform:rotateX(-90deg) translateZ(227px);background:#B9BDC3}
+.v3d__obj{
+  position:relative;width:var(--v3w);height:var(--v3h);
+  transform-style:preserve-3d;will-change:transform;
+}
+.v3d__f{position:absolute;left:50%;top:50%;background-size:100% 100%;background-position:center}
+/* yüzler kendi ölçülerini değişkenlerden alır; margin ile merkeze oturur */
+.v3d__f--front,.v3d__f--back{
+  width:var(--v3w);height:var(--v3h);
+  margin:calc(var(--v3h) / -2) 0 0 calc(var(--v3w) / -2);
+  border-radius:8px;overflow:hidden;
+}
+.v3d__f--front{transform:translateZ(calc(var(--v3p) / 2));background-color:#fbfbfc}
+.v3d__f--front img,.v3d__f--front svg{width:100%;height:100%;object-fit:fill;display:block}
+.v3d__f--back{
+  transform:rotateY(180deg) translateZ(calc(var(--v3p) / 2));
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0 24px,rgba(0,0,0,.055) 24px 26px),
+    linear-gradient(180deg,#DCDFE3,#C4C8CE);
+}
+.v3d__f--left,.v3d__f--right{
+  width:var(--v3p);height:var(--v3h);
+  margin:calc(var(--v3h) / -2) 0 0 calc(var(--v3p) / -2);
+  border-radius:5px;overflow:hidden;
+}
+.v3d__f--left{transform:rotateY(-90deg) translateZ(calc(var(--v3w) / 2))}
+.v3d__f--right{transform:rotateY(90deg) translateZ(calc(var(--v3w) / 2))}
+.v3d__f--top,.v3d__f--bottom{
+  width:var(--v3w);height:var(--v3p);
+  margin:calc(var(--v3p) / -2) 0 0 calc(var(--v3w) / -2);
+  border-radius:5px;
+}
+.v3d__f--top{transform:rotateX(90deg) translateZ(calc(var(--v3h) / 2));background-image:linear-gradient(180deg,#F6F7F9,#DFE2E6)}
+.v3d__f--bottom{transform:rotateX(-90deg) translateZ(calc(var(--v3h) / 2));background-color:#AEB2B8}
+/* doku yokken yan yüzler nötr gradyan */
+.v3d__f--left{background-image:linear-gradient(90deg,#F1F2F4,#D9DCE0)}
+.v3d__f--right{background-image:linear-gradient(-90deg,#E7E9EC,#CBCFD4)}
+/* doku varken (JS --v3yan tanımlar) gerçek panel fotoğrafı */
+.v3d[data-doku="var"] .v3d__f--left{background-image:var(--v3yan);transform:rotateY(-90deg) translateZ(calc(var(--v3w) / 2)) scaleX(-1)}
+.v3d[data-doku="var"] .v3d__f--right{background-image:var(--v3yan)}
+/* ışık: sağ yüz gölgede, sol yüz daha aydınlık — hacim hissi verir */
+.v3d__f--right::after,.v3d__f--left::after,.v3d__f--top::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.v3d__f--right::after{background:linear-gradient(-90deg,rgba(0,0,0,.20),rgba(0,0,0,.04))}
+.v3d__f--left::after{background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(0,0,0,.10))}
+.v3d__f--top::after{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.06))}
+/* kenar çizgisi: yüzlerin birleştiği yer keskin görünsün */
+.v3d__f--front,.v3d__f--back,.v3d__f--left,.v3d__f--right,.v3d__f--top{
+  box-shadow:inset 0 0 0 1px rgba(148,156,166,.42);
+}
 .v3d__shadow{
-  position:absolute;left:50%;bottom:-6px;width:250px;height:36px;margin-left:-125px;
-  background:radial-gradient(ellipse at center,rgba(0,0,0,.42),transparent 68%);
-  filter:blur(6px);pointer-events:none;
+  position:absolute;left:50%;bottom:4%;width:var(--v3w);height:26px;
+  transform:translateX(-50%) scale(var(--v3gs,1));
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.5),transparent 70%);
+  filter:blur(9px);pointer-events:none;transition:transform .1s linear;
 }
 .v3d__hint{
-  position:absolute;left:50%;top:-8px;transform:translateX(-50%);
+  position:absolute;left:50%;top:0;transform:translateX(-50%);
   font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
-  color:#9FE4F7;white-space:nowrap;pointer-events:none;
+  color:#9FE4F7;white-space:nowrap;pointer-events:none;transition:opacity .3s ease;
 }
+.v3d[data-tutuldu="evet"] .v3d__hint{opacity:0}
+.v3d__bar{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.v3d__btn{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);color:#E9F1F6;
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 13px;border-radius:3px;cursor:pointer;transition:background .2s ease,border-color .2s ease;
+}
+.v3d__btn:hover{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.4)}
+.v3d__btn:focus-visible{outline:2px solid var(--panel-frost);outline-offset:2px}
 @media (max-width:560px){
-  .v3d__stage{transform:scale(.62);height:380px}
+  .v3d__stage{transform:scale(.72)}
+}
+@media (prefers-reduced-motion:reduce){
+  .v3d__shadow{transition:none}
 }
 
 /* 3D rozeti — kartta belli olsun */
@@ -828,7 +883,7 @@ img{max-width:100%;height:auto;display:block}
         <a class="card rise" href="urunler.html">
           <div class="card__art card__art--photo">
             <span class="badge3d" aria-hidden="true">3D</span>
-            <img src="img/buzdolabi-ues470.webp" data-v3d="Uğur UES 470 — 463 L buzdolabı" width="213" height="491" loading="lazy" alt="Uğur UES 470 beyaz üstten donduruculu 463 litre buzdolabı">
+            <img src="img/buzdolabi-ues470.webp" data-v3d="Uğur UES 470 — 463 L buzdolabı" data-v3d-en="700" data-v3d-boy="1780" data-v3d-derinlik="750" width="213" height="491" loading="lazy" alt="Uğur UES 470 beyaz üstten donduruculu 463 litre buzdolabı">
           </div>
           <span class="lcd">+4 °C · No‑Frost</span>
           <h3>Buzdolabı</h3>
@@ -1074,6 +1129,7 @@ img{max-width:100%;height:auto;display:block}
                 <text x="27" y="41" text-anchor="end" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#1E2226">A</text>
               </g>
             </svg>
+            <img class="v3d__ph" id="v3dPh" alt="" hidden>
           </div>
           <div class="v3d__f v3d__f--back"></div>
           <div class="v3d__f v3d__f--left"></div>
@@ -1082,6 +1138,10 @@ img{max-width:100%;height:auto;display:block}
           <div class="v3d__f v3d__f--bottom"></div>
         </div>
         <div class="v3d__shadow"></div>
+      </div>
+      <div class="v3d__bar">
+        <button class="v3d__btn" type="button" id="v3dOn">Önden göster</button>
+        <button class="v3d__btn" type="button" id="v3dDon" aria-pressed="true">Döndürmeyi durdur</button>
       </div>
     </div>
     <figcaption class="lb__cap" id="lbCap"></figcaption>
@@ -1227,28 +1287,96 @@ img{max-width:100%;height:auto;display:block}
     lb.hidden = true; document.body.style.overflow = ""; lbImg.src = "";
     lb.classList.remove("lb--3d"); if (typeof v3dStop === "function") v3dStop();
   }
-  /* 3D görüntüleyici durumu */
+  /* ── 3D görüntüleyici ────────────────────────────────────────────────
+     Ürüne özel ayar tetikleyen görselin data- özniteliklerinden okunur:
+       data-v3d       → başlık (zorunlu; bu öznitelik 3D'yi açar)
+       data-v3d-en/boy/derinlik → gerçek ürün ölçüsü (mm) — oranlar buradan
+       data-v3d-on    → ön yüz fotoğrafı (yoksa yerleşik SVG çizim kullanılır)
+       data-v3d-yan   → yan panel dokusu (ürünün 3/4 fotoğrafından çıkarıldı)
+     Sürüklemede atalet var: bırakınca hız yavaşlayarak sönümlenir. */
   var v3d = document.getElementById("v3d");
   var v3dObj = document.getElementById("v3dObj");
-  var vRX = -10, vRY = -28, vDrag = false, vLX = 0, vLY = 0, vRAF = null;
-  var vAuto = !reduce;                                  // reduced-motion: kendi kendine dönme yok
-  function v3dApply() { v3dObj.style.transform = "rotateX(" + vRX + "deg) rotateY(" + vRY + "deg)"; }
-  function v3dLoop() { if (vAuto && !vDrag) { vRY += 0.35; v3dApply(); } vRAF = requestAnimationFrame(v3dLoop); }
-  function v3dStart() { vRX = -10; vRY = -28; vAuto = !reduce; v3dApply(); if (!vRAF) vRAF = requestAnimationFrame(v3dLoop); }
+  var v3dPh = document.getElementById("v3dPh");
+  var v3dSvg = v3d.querySelector(".v3d__f--front svg");
+  var v3dGolge = v3d.querySelector(".v3d__shadow");
+  var vRX = -10, vRY = -28, vHiz = 0, vDrag = false, vLX = 0, vLY = 0, vRAF = null;
+  var vAuto = !reduce, vSonHareket = 0;
+
+  function v3dApply() {
+    v3dObj.style.transform = "rotateX(" + vRX + "deg) rotateY(" + vRY + "deg)";
+    /* gölge, gövde yana döndükçe genişler: derinlik ön genişlikten farklıysa fark eder */
+    var g = Math.abs(Math.sin(vRY * Math.PI / 180));
+    v3d.style.setProperty("--v3gs", (1 + g * 0.28).toFixed(3));
+  }
+  function v3dLoop() {
+    if (!vDrag) {
+      if (Math.abs(vHiz) > 0.02) {            // atalet: bırakınca sönümlenerek dur
+        vRY += vHiz; vHiz *= 0.94; v3dApply();
+      } else if (vAuto && Date.now() - vSonHareket > 1400) {
+        vRY += 0.3; v3dApply();               // boşta kaldıysa yavaşça dönmeye devam et
+      }
+    }
+    vRAF = requestAnimationFrame(v3dLoop);
+  }
+  function v3dDonduryeAyarla(ac) {
+    vAuto = ac && !reduce;
+    var b = document.getElementById("v3dDon");
+    if (b) { b.textContent = vAuto ? "Döndürmeyi durdur" : "Döndür"; b.setAttribute("aria-pressed", vAuto ? "true" : "false"); }
+  }
+  /* tetikleyen görselden ürün ayarlarını al ve sahneyi kur */
+  function v3dStart(img) {
+    var mm = function (ad, varsayilan) { return parseFloat(img.getAttribute("data-v3d-" + ad)) || varsayilan; };
+    var en = mm("en", 700), boy = mm("boy", 1780), der = mm("derinlik", 750);
+    var H = 400;                                       // sahnedeki referans yükseklik (px)
+    v3d.style.setProperty("--v3h", H + "px");
+    v3d.style.setProperty("--v3w", Math.round(H * en / boy) + "px");
+    v3d.style.setProperty("--v3p", Math.round(H * der / boy) + "px");
+
+    var on = img.getAttribute("data-v3d-on");
+    if (on) { v3dPh.src = on; v3dPh.hidden = false; if (v3dSvg) v3dSvg.style.display = "none"; }
+    else { v3dPh.hidden = true; v3dPh.removeAttribute("src"); if (v3dSvg) v3dSvg.style.display = "block"; }
+
+    var yan = img.getAttribute("data-v3d-yan");
+    if (yan) { v3d.style.setProperty("--v3yan", 'url("' + yan + '")'); v3d.dataset.doku = "var"; }
+    else { v3d.style.removeProperty("--v3yan"); delete v3d.dataset.doku; }
+
+    v3d.removeAttribute("data-tutuldu");
+    vRX = -10; vRY = -28; vHiz = 0; vSonHareket = Date.now();
+    v3dDonduryeAyarla(true); v3dApply();
+    if (!vRAF) vRAF = requestAnimationFrame(v3dLoop);
+  }
   function v3dStop() { if (vRAF) { cancelAnimationFrame(vRAF); vRAF = null; } }
+
   v3d.addEventListener("click", function (e) { e.stopPropagation(); });   // sahneye tıklamak kapatmasın
   v3d.addEventListener("pointerdown", function (e) {
-    vDrag = true; vAuto = false; vLX = e.clientX; vLY = e.clientY;
+    vDrag = true; vHiz = 0; vLX = e.clientX; vLY = e.clientY;
+    v3d.dataset.tutuldu = "evet";
     v3d.setPointerCapture(e.pointerId); e.preventDefault();
   });
   v3d.addEventListener("pointermove", function (e) {
     if (!vDrag) return;
-    vRY += (e.clientX - vLX) * 0.45;
-    vRX = Math.max(-32, Math.min(10, vRX - (e.clientY - vLY) * 0.3));
-    vLX = e.clientX; vLY = e.clientY; v3dApply();
+    var dx = (e.clientX - vLX) * 0.45;
+    vRY += dx; vHiz = dx;                              // son hareket hızı ataleti besler
+    vRX = Math.max(-30, Math.min(12, vRX - (e.clientY - vLY) * 0.28));
+    vLX = e.clientX; vLY = e.clientY; vSonHareket = Date.now(); v3dApply();
   });
   ["pointerup", "pointercancel"].forEach(function (ev) {
-    v3d.addEventListener(ev, function () { vDrag = false; });
+    v3d.addEventListener(ev, function () { vDrag = false; vSonHareket = Date.now(); });
+  });
+  /* klavye: ok tuşlarıyla da döndürülebilsin */
+  v3d.setAttribute("tabindex", "0");
+  v3d.addEventListener("keydown", function (e) {
+    var k = { ArrowLeft: [-8, 0], ArrowRight: [8, 0], ArrowUp: [0, -5], ArrowDown: [0, 5] }[e.key];
+    if (!k) return;
+    e.preventDefault(); vHiz = 0; vAuto = false; v3dDonduryeAyarla(false);
+    vRY += k[0]; vRX = Math.max(-30, Math.min(12, vRX + k[1]));
+    vSonHareket = Date.now(); v3dApply();
+  });
+  document.getElementById("v3dOn").addEventListener("click", function () {
+    vHiz = 0; vRX = -10; vRY = 0; vSonHareket = Date.now(); v3dApply();   // tam önden
+  });
+  document.getElementById("v3dDon").addEventListener("click", function () {
+    v3dDonduryeAyarla(!vAuto); vSonHareket = 0;
   });
 
   document.querySelectorAll(".card__art img, .model__art img").forEach(function (img) {
@@ -1259,7 +1387,8 @@ img{max-width:100%;height:auto;display:block}
       if (d3) {                                   // 3D görünümü olan ürün
         lb.classList.add("lb--3d");
         lbCap.textContent = d3 + " — sürükleyerek döndürün";
-        v3dStart();
+        v3d.setAttribute("aria-label", d3 + " — döndürülebilir üç boyutlu görünüm");
+        v3dStart(img);
       } else {
         lb.classList.remove("lb--3d");
         lbImg.src = img.getAttribute("data-full") || img.src;
