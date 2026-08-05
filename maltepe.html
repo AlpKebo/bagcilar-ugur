@@ -319,6 +319,15 @@ img{max-width:100%;height:auto;display:block}
 .band--deep .card,.band--deep .model{color:var(--ink)}
 
 /* ── 8. KATEGORİ KARTLARI ──────────────────────────────── */
+/* ── 20. SAYFA BASLIGI (iletisim, urunler gibi ic sayfalar) ──── */
+.pagehead{padding-block:clamp(44px,6vw,76px)}
+.pagehead h1{
+  font-size:clamp(2.05rem,4.5vw,3.35rem);font-weight:800;letter-spacing:-.035em;
+  line-height:1.03;color:#fff;margin:14px 0 0;
+}
+.pagehead h1 em{font-style:normal;color:var(--panel-frost)}
+.pagehead__lead{font-size:var(--fs-lead);color:var(--panel-ink-2);max-width:58ch;margin-top:18px}
+
 .katalog__cta{margin:28px 0 0}
 .grid-p{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));
