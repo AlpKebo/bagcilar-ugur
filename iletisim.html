@@ -625,8 +625,11 @@ img{max-width:100%;height:auto;display:block}
 /* iki şube yan yana; dar ekranda alt alta */
 .stores{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(26px,3.4vw,44px)}
 .store{display:flex;flex-direction:column;gap:20px}
+/* iki panelin satır sayısı farklı (Maltepe'de tek saat satırı var);
+   gövde esneyip butonları alta itsin ki iki taraf aynı hizada bitsin */
+.store__body{flex:1;display:flex;flex-direction:column}
 .store__name{font-size:clamp(1.45rem,2.3vw,1.95rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:10px 0 0}
-.store__cta{display:flex;flex-wrap:wrap;gap:10px}
+.store__cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:22px}
 /* dar sütunda 112px'lik etiket kolonu metni sıkıştırıyor */
 .store .info__row{grid-template-columns:96px 1fr;gap:12px}
 @media (max-width:520px){
@@ -769,7 +772,7 @@ img{max-width:100%;height:auto;display:block}
                     </a>
                   </div>
                 </div>
-        <div>
+        <div class="store__body">
           <p class="tag tag--accent"><span class="tag__dot"></span>Avrupa yakası</p>
           <h2 class="store__name">Bağcılar</h2>
           <div class="info">
@@ -800,7 +803,7 @@ img{max-width:100%;height:auto;display:block}
               <span class="info__v"><a href="https://www.instagram.com/cekaltd_bagcilar/" rel="noopener">@cekaltd_bagcilar</a></span>
             </div>
           </div>
-          <div class="store__cta" style="margin-top:22px">
+          <div class="store__cta">
             <a class="btn btn--primary" href="tel:+905421469017">Ara</a>
             <a class="btn btn--wa" href="https://wa.me/905421469017" rel="noopener">WhatsApp’tan yaz</a>
             <a class="btn btn--outline" href="index.html">Mağaza sayfası</a>
@@ -844,7 +847,7 @@ img{max-width:100%;height:auto;display:block}
                     </a>
                   </div>
                 </div>
-        <div>
+        <div class="store__body">
           <p class="tag tag--accent"><span class="tag__dot"></span>Anadolu yakası</p>
           <h2 class="store__name">Maltepe Park AVM</h2>
           <div class="info">
@@ -875,7 +878,7 @@ img{max-width:100%;height:auto;display:block}
               <span class="info__v"><a href="https://www.instagram.com/ugur_istanbul_cekaltd/" rel="noopener">@ugur_istanbul_cekaltd</a></span>
             </div>
           </div>
-          <div class="store__cta" style="margin-top:22px">
+          <div class="store__cta">
             <a class="btn btn--primary" href="tel:+905421460317">Ara</a>
             <a class="btn btn--wa" href="https://wa.me/905421460317" rel="noopener">WhatsApp’tan yaz</a>
             <a class="btn btn--outline" href="maltepe.html">Mağaza sayfası</a>
