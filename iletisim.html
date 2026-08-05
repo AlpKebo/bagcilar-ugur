@@ -388,7 +388,7 @@ img{max-width:100%;height:auto;display:block}
 .lb--3d .v3d{display:grid}
 .v3d:active{cursor:grabbing}
 .v3d__stage{
-  width:min(340px,80vw);height:min(560px,62vh);perspective:1400px;perspective-origin:50% 42%;
+  width:min(340px,80vw);height:min(560px,58vh);perspective:1400px;perspective-origin:50% 42%;
   display:grid;place-items:center;position:relative;
 }
 .v3d__obj{
@@ -451,7 +451,7 @@ img{max-width:100%;height:auto;display:block}
   color:#9FE4F7;white-space:nowrap;pointer-events:none;transition:opacity .3s ease;
 }
 .v3d[data-tutuldu="evet"] .v3d__hint{opacity:0}
-.v3d__bar{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.v3d__bar{display:flex;gap:8px;justify-content:center;margin-top:18px;position:relative;z-index:2}
 .v3d__btn{
   background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);color:#E9F1F6;
   font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
@@ -1275,7 +1275,10 @@ img{max-width:100%;height:auto;display:block}
   function v3dStart(img) {
     var mm = function (ad, varsayilan) { return parseFloat(img.getAttribute("data-v3d-" + ad)) || varsayilan; };
     var en = mm("en", 700), boy = mm("boy", 1780), der = mm("derinlik", 750);
-    var H = 400;                                       // sahnedeki referans yükseklik (px)
+    /* Yükseklik sahneye göre: döndürülünce köşeler taştığı için sahnenin
+       tamamını doldurmuyoruz — yoksa alttaki düğmelerin üstüne biniyor. */
+    var sahne = v3d.querySelector(".v3d__stage");
+    var H = Math.max(220, Math.min(390, Math.round((sahne.clientHeight || 460) * 0.76)));
     v3d.style.setProperty("--v3h", H + "px");
     v3d.style.setProperty("--v3w", Math.round(H * en / boy) + "px");
     v3d.style.setProperty("--v3p", Math.round(H * der / boy) + "px");
